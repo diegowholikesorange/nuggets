@@ -1,8 +1,10 @@
-package com.serverless;
+package net.tognola.diego.nuggets;
 
 import java.util.Collections;
 import java.util.Map;
 
+import com.serverless.ApiGatewayResponse;
+import com.serverless.Response;
 import org.apache.log4j.Logger;
 
 import com.amazonaws.services.lambda.runtime.Context;

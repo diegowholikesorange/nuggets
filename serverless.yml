@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: aws-java-gradle # NOTE: update this with your service name
+service: nuggets # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -47,11 +47,11 @@ provider:
 
 # you can add packaging information here
 package:
-  artifact: build/distributions/hello.zip
+  artifact: build/distributions/nuggets.zip
 
 functions:
   hello:
-    handler: com.serverless.Handler
+    handler: net.tognola.diego.nuggets.Handler
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
