@@ -20,6 +20,11 @@ service: nuggets # NOTE: update this with your service name
 provider:
   name: aws
   runtime: java8
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: "*"
 
 # you can overwrite defaults here
 #  stage: dev
@@ -41,6 +46,7 @@ provider:
 #            - "Ref" : "ServerlessDeploymentBucket"
 #            - "/*"
 
+
 # you can define service wide environment variables here
 #  environment:
 #    variable1: value1
@@ -51,7 +57,13 @@ package:
 
 functions:
   hello:
-    handler: net.tognola.diego.nuggets.Handler
+    handler: net.tognola.diego.nuggets.HelloHandler
+  listNuggest:
+    handler: net.tognola.diego.nuggets.ListNuggetsHandler
+    events:
+      - http:
+          path: /nugets
+          method: get
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -86,6 +98,8 @@ functions:
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
+environment:
+  TABLE_NAME: nuggets_table
 
 # you can add CloudFormation resource templates here
 #resources:
@@ -98,3 +112,24 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+# see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-keyschema.html
+resources:
+  Resources:
+    nuggetsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: nuggets_table
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: content
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: content
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+

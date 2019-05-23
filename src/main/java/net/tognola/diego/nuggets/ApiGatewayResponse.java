@@ -1,4 +1,4 @@
-package com.serverless;
+package net.tognola.diego.nuggets;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -16,6 +16,8 @@ public class ApiGatewayResponse {
 	private final String body;
 	private final Map<String, String> headers;
 	private final boolean isBase64Encoded;
+
+
 
 	public ApiGatewayResponse(int statusCode, String body, Map<String, String> headers, boolean isBase64Encoded) {
 		this.statusCode = statusCode;

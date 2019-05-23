@@ -1,4 +1,4 @@
-package com.serverless;
+package net.tognola.diego.nuggets;
 
 import java.util.Map;
 
